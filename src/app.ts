@@ -3,6 +3,7 @@ import express, {
   type Request,
   type Response,
 } from "express";
+import { userRoute } from "./modules/users/user.route";
 
 const app: Application = express();
 
@@ -18,6 +19,6 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
-// app.use("/api/auth/singup", userRoute);
+app.use("/api/auth/signup", userRoute);
 
 export default app;
