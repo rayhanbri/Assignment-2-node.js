@@ -9,7 +9,6 @@ const auth = (...roles: ROLES[]) => {
     try {
       const token = req.headers.authorization;
       // console.log(token);
-
       if (!token) {
         res.status(401).json({
           success: false,
@@ -25,7 +24,7 @@ const auth = (...roles: ROLES[]) => {
 
       const userData = await pool.query(
         `
-     SELECT * FROM users WHERE email=$1   
+         SELECT * FROM users WHERE email=$1   
         `,
         [decoded.email],
       );

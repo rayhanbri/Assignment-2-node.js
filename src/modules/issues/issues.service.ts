@@ -60,7 +60,16 @@ const getSingleIssuesFromDB = async (id: string) => {
   // console.log(formattedIssue);
   return formattedIssue;
 };
+
+const deleteIssuesFromDB = async (id: string) => {
+  const result = await pool.query(
+    `DELETE FROM issues WHERE id = $1 RETURNING *`,
+    [id],
+  );
+  return result.rows[0];
+};
 export const issuesService = {
   createIssuesIntoDB,
   getSingleIssuesFromDB,
+  deleteIssuesFromDB,
 };

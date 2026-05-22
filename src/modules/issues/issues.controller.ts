@@ -63,7 +63,40 @@ const getSingleIssues = async (req: Request, res: Response) => {
   }
 };
 
+const deleteIssues = async (req: Request, res: Response) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: "User not authenticated",
+      });
+    }
+    const { id } = req.params;
+    // console.log(id);
+    const result = await issuesService.deleteIssuesFromDB(id as string);
+
+    if (!result) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found!",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Issue deleted successfully",
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: error,
+    });
+  }
+};
+
 export const issuesController = {
   createIssues,
   getSingleIssues,
+  deleteIssues,
 };
