@@ -29,7 +29,7 @@ export const initDB = async () => {
        CHECK (type IN ('bug', 'feature_request')),
        status VARCHAR(20) DEFAULT 'open'
        CHECK (status IN ('open', 'in_progress', 'resolved')),
-       reporter_id INTEGER NOT NULL,
+       reporter_id PRIMARY KEY SERIAL ,
 
       created_at TIMESTAMP DEFAULT NOW(),
       updated_at TIMESTAMP DEFAULT NOW()
