@@ -1,0 +1,123 @@
+How to deploy your project---
+
+1.remove all the console.log
+
+2. npm run dev
+
+3.Add these scripts to package.json
+
+  "start": "node dist/server.js",
+
+  "dev": "tsx watch ./src/server.ts",
+
+  "build": "tsc",
+
+4.npm run build
+
+5.npm start
+
+6.npm i tsup
+
+7.root er modde tsup.config.ts
+
+8.
+tsup.config.ts
+
+import { defineConfig } from "tsup";
+
+
+
+
+
+export default defineConfig({
+
+ entry: ["src/server.ts"],
+
+ format: ["esm"], // Keep this as ESM
+
+ target: "esnext",
+
+ outDir: "dist",
+
+ clean: true,
+
+ bundle: true,
+
+ splitting: false,
+
+ sourcemap: true,
+
+ // Add this banner to shim require() for CJS dependencies
+
+ banner: {
+
+  js: `
+
+   import { createRequire } from 'module';
+
+   const require = createRequire(import.meta.url);
+
+  `,
+
+ },
+
+});
+
+
+
+9.package.json   "build": "tsup",
+
+9.1. npm run build
+
+10.npm start 
+
+11.
+Add these lines to tsconfig.json
+
+"include": ["src/**/*"],
+
+ "exclude": []
+
+last curly basis  er upore comma dio brasis e  
+
+12.vercel deployment stat 
+Command: [npm i -g vercel, vercel login, vercel –prod] 
+
+13.
+vercel.json
+
+{
+
+ "version": 2,
+
+ "builds": [
+
+  {
+
+   "src": "dist/server.js",
+
+   "use": "@vercel/node"
+
+  }
+
+ ],
+
+ "routes": [
+
+  {
+
+   "src": "/(.*)",
+
+   "dest": "dist/server.js"
+
+  }
+
+ ]
+
+}
+
+14.add env // port no need
+15.add cors 
+
+
+

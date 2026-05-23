@@ -100,7 +100,7 @@ const updateIssues = async (req: Request, res: Response) => {
     // Get issue details
     const issueResult = await issuesService.getSingleIssuesFromDB(id as string);
 
-    // console.log(issueResult);
+    console.log(issueResult);
 
     if (!issueResult) {
       return res.status(404).json({
