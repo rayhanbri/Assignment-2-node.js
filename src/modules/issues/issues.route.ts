@@ -6,6 +6,8 @@ import { userController } from "../users/user.controller";
 
 const router = Router();
 
+router.get("/",issuesController.getAllIssues);
+
 router.post(
   "/",
   auth(USER_ROLE.maintainer, USER_ROLE.contributor),

@@ -1,6 +1,28 @@
 import type { Request, Response } from "express";
 import { issuesService } from "./issues.service";
 
+const getAllIssues = async (req: Request, res: Response) => {
+  try {
+    const { sort = "newest" } = req.query;
+
+    const result = await issuesService.getAllIssuesFromDB(sort as string);
+
+    // console.log(req.query);
+
+    res.status(200).json({
+      success: true,
+      message: "Issues retrived successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      error: error,
+    });
+  }
+};
+
 const createIssues = async (req: Request, res: Response) => {
   try {
     if (!req.user) {
@@ -156,8 +178,9 @@ const deleteIssues = async (req: Request, res: Response) => {
 };
 
 export const issuesController = {
+  getAllIssues,
   createIssues,
   getSingleIssues,
-  deleteIssues,
   updateIssues,
+  deleteIssues,
 };
